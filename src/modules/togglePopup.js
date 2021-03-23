@@ -8,7 +8,8 @@ const togglePopup = () => {
     let count = 0,
         animationInterval;
 
-    const animationPopup = (popup) => {
+    const animationPopup = popup => {
+        // eslint-disable-next-line no-unused-vars
         animationInterval = requestAnimationFrame(animationPopup);
         count += 0.05;
         popup.style.opacity = count;
@@ -20,7 +21,7 @@ const togglePopup = () => {
     };
 
 
-    const popupOpen = (popup) => {
+    const popupOpen = popup => {
         if (screen.width < 768) {
             popup.style.display = 'block';
         } else {
@@ -38,7 +39,7 @@ const togglePopup = () => {
             target.classList.contains('close-btn')) {
             popup.style.display = '';
         }
-    }
+    };
 
     right.addEventListener('click', event => {
         const target = event.target;
@@ -50,17 +51,23 @@ const togglePopup = () => {
         }
     });
 
-    fixedGift.addEventListener('click', () => {
-        popupOpen(gift);
-        fixedGift.style.display = 'none';
-    });
+    if (fixedGift) {
+        fixedGift.addEventListener('click', () => {
+            popupOpen(gift);
+            fixedGift.style.display = 'none';
+        });
+    }
 
     freeVisitForm.addEventListener('click', event => { popupClose(event, freeVisitForm); });
     callbackForm.addEventListener('click', event => { popupClose(event, callbackForm); });
-    gift.addEventListener('click', event => {
-        popupClose(event, gift);
 
-        if (gift.style.display !== 'block') fixedGift.style.display = '';
-    });
+    if (gift) {
+        gift.addEventListener('click', event => {
+            popupClose(event, gift);
+
+            if (gift.style.display !== 'block') fixedGift.style.display = '';
+        });
+    }
 };
 
+export default togglePopup;

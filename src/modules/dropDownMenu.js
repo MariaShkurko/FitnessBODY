@@ -3,4 +3,6 @@ const dropDownMenu = () => {
         clubsListUl = clubsList.querySelector('ul');
 
     clubsList.addEventListener('click', () => { clubsListUl.classList.toggle('db'); });
-}
+};
+
+export default dropDownMenu;
