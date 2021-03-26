@@ -23,7 +23,7 @@ const mainSlider = () => {
         setInterval(() => { currentMainSlide = autoPlaySlide(slider, currentMainSlide); }, time);
     };
 
-    startSlide(mainSliders, 2000);
+    startSlide(mainSliders, 5000);
 };
 
 export default mainSlider;
