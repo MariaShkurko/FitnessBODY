@@ -220,6 +220,7 @@ input,
 select,
 textarea {
   margin: 0;
+  outline: none;
 }
 button,
 input[type="button"] {
@@ -1944,6 +1945,12 @@ p.personal-data input[type="checkbox"]:checked + label:before {
 }
 .db {
   display: block !important;
+}
+.df {
+  display: flex !important;
+}
+.dn {
+  display: none !important;
 }
 #thanks .form-content p {
   font-size: 20px;

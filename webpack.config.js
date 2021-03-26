@@ -1,8 +1,7 @@
 const path = require('path');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const mode = process.env.NODE_ENV;
-
-const isDev = mode === 'development';
 
 module.exports = {
     entry: {
@@ -30,6 +29,9 @@ module.exports = {
             }
         ]
     },
+    plugins: [
+        new CleanWebpackPlugin(),
+    ],
     devServer: {
         open: true,
         port: 3000,
@@ -38,4 +40,4 @@ module.exports = {
         overlay: true,
         writeToDisk: true
     }
-}
+};
