@@ -12,12 +12,15 @@ mainSlider();
 gallerySlider();
 // Выпадающее меню
 dropDownMenu();
-// Липкое мобильное меню
+// Действия при скролле:
+//      Липкое мобильное меню
+//      Появлние стрекли "Вверх"
 fixedMenu();
 // модальные окна
 togglePopup();
 // Мобильное меню
 togglePopupMenu();
+// Появлние стрекли "Вверх"
 // Валидация форм
 const errorValidList = validateForm();
 // Отправка форм
