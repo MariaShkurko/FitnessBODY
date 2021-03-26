@@ -5,10 +5,10 @@ const fixedMenu = () => {
     window.addEventListener('scroll', () => {
         if (window.pageYOffset > topMenu.offsetTop) {
             topMenu.classList.add('fixed');
-            gift.style.top = `${15 + topMenu.offsetHeight}px`;
+            if (gift) gift.style.top = `${15 + topMenu.offsetHeight}px`;
         } else {
             topMenu.classList.remove('fixed');
-            gift.style.top = '';
+            if (gift) gift.style.top = '';
         }
     });
 };
