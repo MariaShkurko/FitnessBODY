@@ -1397,6 +1397,7 @@ nav.popup-menu .close-menu-btn img {
   background: url(../images/gallery-bg.png) left center no-repeat;
 }
 #gallery .gallery-slider {
+  position: relative;
   padding-left: 75px;
   padding-right: 75px;
   max-width: 900px;
@@ -1404,8 +1405,12 @@ nav.popup-menu .close-menu-btn img {
   text-align: center;
 }
 #gallery .gallery-slider .slide {
+  display: none;
   margin: 0 auto !important;
   width: 100%;
+}
+#gallery .gallery-slider .slide-active {
+  display: block;
 }
 #gallery .gallery-slider .slider-arrow {
   position: absolute;
@@ -1413,8 +1418,6 @@ nav.popup-menu .close-menu-btn img {
   margin-top: -18px;
   z-index: 100;
   cursor: pointer;
-}
-#gallery .gallery-slider .slider-arrow span {
   display: block;
   width: 36px;
   height: 37px;
@@ -1423,6 +1426,7 @@ nav.popup-menu .close-menu-btn img {
   text-align: center;
   padding-top: 11px;
 }
+
 #gallery .gallery-slider .slider-arrow.prev {
   left: 0;
 }

@@ -2,10 +2,12 @@ import dropDownMenu from './modules/dropDownMenu';
 import togglePopup from './modules/togglePopUp';
 import validateForm from './modules/validateForm';
 import sendForm from './modules/sendForm';
-import slider from './modules/slider';
+import mainSlider from './modules/mainSlider';
+import gallerySlider from './modules/gallerySlider';
 
 // Слайдеры
-slider();
+mainSlider();
+gallerySlider();
 // Выпадающее меню
 dropDownMenu();
 // модальные окна
