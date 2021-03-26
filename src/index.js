@@ -1,5 +1,5 @@
 import dropDownMenu from './modules/dropDownMenu';
-import fixedMenu from './modules/fixedMenu';
+import scrollActions from './modules/scrollActions';
 import togglePopup from './modules/togglePopUp';
 import togglePopupMenu from './modules/togglePopupMenu';
 import validateForm from './modules/validateForm';
@@ -15,7 +15,7 @@ dropDownMenu();
 // Действия при скролле:
 //      Липкое мобильное меню
 //      Появлние стрекли "Вверх"
-fixedMenu();
+scrollActions();
 // модальные окна
 togglePopup();
 // Мобильное меню
