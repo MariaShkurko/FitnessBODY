@@ -975,6 +975,9 @@ header nav.top-menu {
   );
   background-image: linear-gradient(to right, #230a16 0%, #0c0b15 100%);
 }
+header nav.top-menu.fixed {
+  position: fixed;
+}
 header nav.top-menu .menu-button {
   text-align: right;
 }
