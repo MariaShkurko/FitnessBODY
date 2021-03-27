@@ -1,11 +1,12 @@
+import calc from './modules/calc';
 import dropDownMenu from './modules/dropDownMenu';
+import gallerySlider from './modules/gallerySlider';
+import mainSlider from './modules/mainSlider';
 import scrollActions from './modules/scrollActions';
+import sendForm from './modules/sendForm';
 import togglePopup from './modules/togglePopUp';
 import togglePopupMenu from './modules/togglePopupMenu';
 import validateForm from './modules/validateForm';
-import sendForm from './modules/sendForm';
-import mainSlider from './modules/mainSlider';
-import gallerySlider from './modules/gallerySlider';
 
 // Слайдеры
 mainSlider();
@@ -20,8 +21,9 @@ scrollActions();
 togglePopup();
 // Мобильное меню
 togglePopupMenu();
-// Появлние стрекли "Вверх"
 // Валидация форм
 const errorValidList = validateForm();
+// Калькулятор
+calc();
 // Отправка форм
 sendForm(errorValidList);

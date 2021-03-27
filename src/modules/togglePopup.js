@@ -64,8 +64,6 @@ const togglePopup = () => {
     if (gift) {
         gift.addEventListener('click', event => {
             popupClose(event, gift);
-
-            if (gift.style.display !== 'block') fixedGift.style.display = '';
         });
     }
 };
