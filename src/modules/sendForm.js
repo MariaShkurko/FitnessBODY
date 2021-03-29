@@ -1,6 +1,5 @@
 const sendForm = errorValidate => {
     const errorMessage = 'Что-то пошло не так... Пожалуйста, перезагрузите страницу или попробуйте позднее.',
-        successMessage = 'Ваша заявка отправлена. Мы свяжемся с вами в ближайшее время.',
         needPersonalData = 'Необходимо Ваше согласие на передачу данных',
         incorrectDataMessage = 'Введены некоректные данные',
         needClubCheck = 'Пожалуйста, выберите клуб!',
@@ -33,69 +32,37 @@ const sendForm = errorValidate => {
         body: JSON.stringify(body)
     });
 
-    const prepareData = (event, form, callModal = false) => {
+    const prepareData = (event, form, popupModal = false) => {
         event.preventDefault();
         form.appendChild(statusMessage);
 
         const personalData = form.querySelector('.personal-data > input');
         const clubName = form.querySelectorAll('input[name=club-name]');
 
-        const showMessage = (callModal, success) => {
+        const showMessage = success => {
+            const popup = document.getElementById('thanks'),
+                popupParagraph = popup.querySelector('.form-content > p');
+
             if (personalData) personalData.checked = false;
-
-            if (callModal) {
-                const popup = document.getElementById('thanks'),
-                    popupParagraph = popup.querySelector('.form-content > p');
-
-                if (!success) popupParagraph.textContent = errorMessage;
-
-                popup.style.display = 'block';
-                popup.addEventListener('click', event => {
-                    const target = event.target;
-                    if (target.classList.contains('overlay') ||
-                        target.classList.contains('close-form') ||
-                        target.classList.contains('close_icon') ||
-                        target.classList.contains('close-btn')) {
-                        popup.style.display = '';
-                    }
-                });
-
-                setTimeout(() => {
-                    popup.style.display = '';
-                }, 5000);
-
-                return;
+            if (!success) popupParagraph.textContent = errorMessage;
+            if (popupModal) {
+                popupModal.style.display = '';
             }
 
-            const title = form.querySelector('h4').cloneNode(true),
-                cloneForm = form.cloneNode(true),
-                btn = document.createElement('button'),
-                message = document.createElement('p');
-
-            message.textContent = success ? successMessage : errorMessage;
-            message.classList.add('text');
-            btn.classList.add('btn');
-            btn.classList.add('close-btn');
-            btn.textContent = 'Ок';
-
-            const formContent = form.parentElement,
-                popupForm = formContent.parentElement.parentElement;
-
-            formContent.append(title);
-            formContent.append(message);
-            formContent.append(btn);
-            form.remove();
+            popup.style.display = 'block';
+            popup.addEventListener('click', event => {
+                const target = event.target;
+                if (target.classList.contains('overlay') ||
+                    target.classList.contains('close-form') ||
+                    target.classList.contains('close_icon') ||
+                    target.classList.contains('close-btn')) {
+                    popup.style.display = '';
+                }
+            });
 
             setTimeout(() => {
-                popupForm.style.display = '';
-                title.remove();
-                message.remove();
-                btn.remove();
-                formContent.append(cloneForm);
+                popup.style.display = '';
             }, 3000);
-
-
-            return;
         };
 
         if (errorValidate.size) {
@@ -142,23 +109,23 @@ const sendForm = errorValidate => {
                 form.querySelectorAll('input[type=tel]').forEach(item => {
                     item.value = '';
                 });
-                showMessage(callModal, true);
+                showMessage(true);
             })
             .catch(error => {
                 statusMessage.textContent = '';
-                showMessage(callModal, false);
+                showMessage(false);
                 console.error(error);
             });
     };
 
-    bannerForm.addEventListener('submit', event => { prepareData(event, bannerForm, true); });
-    cardOrder.addEventListener('submit', event => { prepareData(event, cardOrder, true); });
-    footerForm.addEventListener('submit', event => { prepareData(event, footerForm, true); });
+    bannerForm.addEventListener('submit', event => { prepareData(event, bannerForm); });
+    cardOrder.addEventListener('submit', event => { prepareData(event, cardOrder); });
+    footerForm.addEventListener('submit', event => { prepareData(event, footerForm); });
     callbackForm.addEventListener('submit', event => {
-        prepareData(event, callbackForm);
+        prepareData(event, callbackForm, document.getElementById('callback_form'));
     });
     freeVisitForm.addEventListener('submit', event => {
-        prepareData(event, freeVisitForm);
+        prepareData(event, freeVisitForm, document.getElementById('free_visit_form'));
     });
 };
 
