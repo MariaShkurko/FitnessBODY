@@ -1949,15 +1949,6 @@ p.personal-data input[type="checkbox"]:checked + label:before {
 .btn-send:hover {
   background-color: #fff;
 }
-.db {
-  display: block !important;
-}
-.df {
-  display: flex !important;
-}
-.dn {
-  display: none !important;
-}
 #thanks .form-content p {
   font-size: 20px;
   width: 90%;
@@ -1976,6 +1967,57 @@ p.personal-data input[type="checkbox"]:checked + label:before {
   color: #fff;
   font-weight: 500;
   margin-top: 30px;
+}
+.db {
+  display: block !important;
+}
+.df {
+  display: flex !important;
+}
+.dn {
+  display: none !important;
+}
+.status-message {
+  color: #fff;
+  margin: 10px 0;
+}
+.sk-wandering-cubes {
+  width: 4rem;
+  height: 4rem;
+  position: relative;
+  margin: auto;
+}
+.sk-cube {
+  background-color: #fff;
+  width: 1rem;
+  height: 1rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  animation: sk-wandering-cubes 1.8s ease-in-out -1.8s infinite both;
+}
+.sk-cube-2 {
+  animation-delay: -0.9s;
+}
+@keyframes sk-wandering-cubes {
+  0% {
+    transform: rotate(0);
+  }
+  25% {
+    transform: translateX(2rem) rotate(-90deg) scale(0.5);
+  }
+  50% {
+    transform: translateX(2rem) translateY(2rem) rotate(-179deg);
+  }
+  50.1% {
+    transform: translateX(2rem) translateY(2rem) rotate(-180deg);
+  }
+  75% {
+    transform: translateX(0) translateY(2rem) rotate(-270deg) scale(0.5);
+  }
+  100% {
+    transform: rotate(-360deg);
+  }
 }
 @media only screen and (max-width: 1199px) {
   .services-slider .slider-arrow.prev {
