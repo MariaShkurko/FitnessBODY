@@ -61,6 +61,10 @@ const sendForm = errorValidate => {
                     }
                 });
 
+                setTimeout(() => {
+                    popup.style.display = '';
+                }, 5000);
+
                 return;
             }
 
