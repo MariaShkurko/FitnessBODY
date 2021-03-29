@@ -68,6 +68,7 @@ const sendForm = errorValidate => {
             }
 
             const title = form.querySelector('h4').cloneNode(true),
+                cloneForm = form.cloneNode(true),
                 btn = document.createElement('button'),
                 message = document.createElement('p');
 
@@ -77,12 +78,22 @@ const sendForm = errorValidate => {
             btn.classList.add('close-btn');
             btn.textContent = 'Ок';
 
-            const formContent = form.parentNode;
+            const formContent = form.parentElement,
+                popupForm = formContent.parentElement.parentElement;
 
             formContent.append(title);
             formContent.append(message);
             formContent.append(btn);
             form.remove();
+
+            setTimeout(() => {
+                popupForm.style.display = '';
+                title.remove();
+                message.remove();
+                btn.remove();
+                formContent.append(cloneForm);
+            }, 3000);
+
 
             return;
         };
@@ -125,13 +136,13 @@ const sendForm = errorValidate => {
                     throw new Error('status network not 200');
                 }
                 statusMessage.textContent = '';
-                showMessage(callModal, true);
                 form.querySelectorAll('input[type=text]').forEach(item => {
                     item.value = '';
                 });
                 form.querySelectorAll('input[type=tel]').forEach(item => {
                     item.value = '';
                 });
+                showMessage(callModal, true);
             })
             .catch(error => {
                 statusMessage.textContent = '';
