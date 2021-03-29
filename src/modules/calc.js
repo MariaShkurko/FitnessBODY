@@ -66,10 +66,10 @@ const calc = () => {
         };
 
         inputClub.forEach(item => {
-            if (item.checked) request(`/${item.value}.html`, '.cards-types > label > .cost');
+            if (item.checked) request(`./${item.value}.html`, '.cards-types > label > .cost');
 
             item.addEventListener('change', () => {
-                if (item.checked) request(`/${item.value}.html`, '.cards-types > label > .cost');
+                if (item.checked) request(`./${item.value}.html`, '.cards-types > label > .cost');
             });
         });
 
