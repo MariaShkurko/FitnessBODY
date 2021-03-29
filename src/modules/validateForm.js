@@ -1,17 +1,28 @@
 const validateForm = () => {
-    const callbackForm = document.getElementById('form1'),
-        freeVisitForm = document.getElementById('form2'),
-        bannerForm = document.getElementById('banner-form'),
-        cardOrderForm = document.getElementById('card_order'),
-        footerForm = document.getElementById('footer_form');
+    const forms = document.querySelectorAll('form'),
+        inputsPhone = document.querySelectorAll('input[type=tel]'),
+        promoCode = document.querySelector('.price-message > input');
 
     const errorValidate = new Set();
 
-    const isNotEmpty = elem => {
-        if (!elem.value.trim()) {
-            return false;
+    const validatePhone = event => {
+        const target = event.target;
+        target.value = target.value.replace(/^[^0-9+]*/g, '')
+            .replace(/\D*$/g, '')
+            .replace(/^\++/g, '+')
+            .replace(/\(+/g, '(')
+            .replace(/\)+/g, ')');
+
+        if (!target.value.length) {
+            errorValidate.add(target.id);
+        } else if ((target.value.length > 10 || target.value.length < 17) &&
+            target.value.search(/^(\+7|8)(\(\d{3}\)|-?\d{3}-?)(\d{3}-?\d{2}-?\d{2}|\d{2}-\d{2}-\d{3})$/) === -1) {
+            target.style.border = '2px solid red';
+            errorValidate.add(target.id);
+        } else {
+            target.style.border = '';
+            errorValidate.delete(target.id);
         }
-        return true;
     };
 
     const linterForm = event => {
@@ -27,11 +38,15 @@ const validateForm = () => {
         }
     };
 
-    callbackForm.addEventListener('input', linterForm);
-    freeVisitForm.addEventListener('input', linterForm);
-    bannerForm.addEventListener('input', linterForm);
-    cardOrderForm.addEventListener('input', linterForm);
-    footerForm.addEventListener('input', linterForm);
+    forms.forEach(item => {
+        item.addEventListener('input', linterForm);
+    });
+    inputsPhone.forEach(item => {
+        item.addEventListener('blur', validatePhone);
+    });
+    if (promoCode) promoCode.addEventListener('blur', () => {
+        promoCode.value = promoCode.value.trim();
+    });
 
     return errorValidate;
 };

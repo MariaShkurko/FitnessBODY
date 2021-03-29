@@ -1,7 +1,9 @@
 const sendForm = errorValidate => {
     const errorMessage = 'Что-то пошло не так...',
-        successMessage = 'Спасибо! Мы скоро с вами свяжемся!',
+        successMessage = 'Ваша заявка отправлена. Мы свяжемся с вами в ближайшее время.',
+        needPersonalData = 'Необходимо Ваше согласие на передачу данных',
         incorrectDataMessage = 'Введены некоректные данные',
+        needClubCheck = 'Пожалуйста, выберите клуб!',
         loadSpin = document.createElement('div'),
         loadSpinChild1 = document.createElement('div'),
         loadSpinChild2 = document.createElement('div'),
@@ -31,13 +33,74 @@ const sendForm = errorValidate => {
         body: JSON.stringify(body)
     });
 
-    const prepareData = (event, form) => {
+    const prepareData = (event, form, callModal = false) => {
         event.preventDefault();
         form.appendChild(statusMessage);
+
+        const personalData = form.querySelector('.personal-data > input');
+        const clubName = form.querySelectorAll('input[name=club-name]');
+        console.log(personalData);
+
+        const showMessage = (callModal, success) => {
+            if (personalData) personalData.checked = false;
+
+            if (callModal) {
+                const popup = document.getElementById('thanks'),
+                    popupParagraph = popup.querySelector('.form-content > p');
+
+                if (!success) popupParagraph.textContent = errorMessage;
+
+                popup.style.display = 'block';
+                popup.addEventListener('click', event => {
+                    const target = event.target;
+                    if (target.classList.contains('overlay') ||
+                        target.classList.contains('close-form') ||
+                        target.classList.contains('close_icon') ||
+                        target.classList.contains('close-btn')) {
+                        popup.style.display = '';
+                    }
+                });
+
+                return;
+            }
+
+            const title = form.querySelector('h4').cloneNode(true),
+                btn = document.createElement('button'),
+                message = document.createElement('p');
+
+            message.textContent = success ? successMessage : errorMessage;
+            message.classList.add('text');
+            btn.classList.add('btn');
+            btn.classList.add('close-btn');
+            btn.textContent = 'Ок';
+
+            form.textContent = '';
+            form.append(title);
+            form.append(message);
+            form.append(btn);
+        };
 
         if (errorValidate.size) {
             statusMessage.textContent = incorrectDataMessage;
             return;
+        }
+
+        if (personalData && !personalData.checked) {
+            statusMessage.textContent = needPersonalData;
+            return;
+        }
+
+        if (clubName.length) {
+            let isChecked = false;
+            clubName.forEach(item => {
+                console.log(item.checked);
+                if (item.checked) isChecked = true;
+            });
+
+            if (!isChecked) {
+                statusMessage.textContent = needClubCheck;
+                return;
+            }
         }
 
         statusMessage.textContent = '';
@@ -55,20 +118,22 @@ const sendForm = errorValidate => {
                 if (responce.status !== 200) {
                     throw new Error('status network not 200');
                 }
-                statusMessage.textContent = successMessage;
+                statusMessage.textContent = '';
+                showMessage(callModal, true);
                 form.querySelectorAll('input').forEach(item => {
                     item.value = '';
                 });
             })
             .catch(error => {
-                statusMessage.textContent = errorMessage;
+                statusMessage.textContent = '';
+                showMessage(callModal, false);
                 console.error(error);
             });
     };
 
-    bannerForm.addEventListener('submit', event => { prepareData(event, bannerForm); });
-    cardOrder.addEventListener('submit', event => { prepareData(event, cardOrder); });
-    footerForm.addEventListener('submit', event => { prepareData(event, footerForm); });
+    bannerForm.addEventListener('submit', event => { prepareData(event, bannerForm, true); });
+    cardOrder.addEventListener('submit', event => { prepareData(event, cardOrder, true); });
+    footerForm.addEventListener('submit', event => { prepareData(event, footerForm, true); });
     callbackForm.addEventListener('submit', event => {
         prepareData(event, callbackForm);
     });

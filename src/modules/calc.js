@@ -15,7 +15,7 @@ const calc = () => {
                     if (item.checked) priceCurrent = priceArr[i];
                 });
 
-                if (promoCode.value.trim() === 'ТЕЛО2020') {
+                if (promoCode.value.toUpperCase().trim() === 'ТЕЛО2020') {
                     priceCurrent = Math.ceil(priceCurrent * 0.7);
                 }
 

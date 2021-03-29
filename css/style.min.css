@@ -1877,6 +1877,13 @@ footer .footer-bottom .right .socials .social-icon:hover a {
   margin: 8px auto;
   text-align: center;
 }
+.popup .form-content p.text {
+  font-size: 20px;
+  width: 90%;
+  color: #fff;
+  font-weight: 500;
+  margin-top: 30px;
+}
 .popup .form-content input::-webkit-input-placeholder {
   color: #1e1c34;
 }
@@ -1985,6 +1992,9 @@ p.personal-data input[type="checkbox"]:checked + label:before {
   color: #fff;
   margin: 10px 0;
 }
+#cards .status-message {
+  color: inherit;
+}
 .sk-wandering-cubes {
   width: 4rem;
   height: 4rem;
@@ -1999,6 +2009,9 @@ p.personal-data input[type="checkbox"]:checked + label:before {
   top: 0;
   left: 0;
   animation: sk-wandering-cubes 1.8s ease-in-out -1.8s infinite both;
+}
+#cards .sk-cube {
+  background-color: #000;
 }
 .sk-cube-2 {
   animation-delay: -0.9s;
