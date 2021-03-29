@@ -1,5 +1,5 @@
 const sendForm = errorValidate => {
-    const errorMessage = 'Что-то пошло не так...',
+    const errorMessage = 'Что-то пошло не так... Пожалуйста, перезагрузите страницу или попробуйте позднее.',
         successMessage = 'Ваша заявка отправлена. Мы свяжемся с вами в ближайшее время.',
         needPersonalData = 'Необходимо Ваше согласие на передачу данных',
         incorrectDataMessage = 'Введены некоректные данные',
@@ -39,7 +39,6 @@ const sendForm = errorValidate => {
 
         const personalData = form.querySelector('.personal-data > input');
         const clubName = form.querySelectorAll('input[name=club-name]');
-        console.log(personalData);
 
         const showMessage = (callModal, success) => {
             if (personalData) personalData.checked = false;
@@ -78,10 +77,14 @@ const sendForm = errorValidate => {
             btn.classList.add('close-btn');
             btn.textContent = 'Ок';
 
-            form.textContent = '';
-            form.append(title);
-            form.append(message);
-            form.append(btn);
+            const formContent = form.parentNode;
+
+            formContent.append(title);
+            formContent.append(message);
+            formContent.append(btn);
+            form.remove();
+
+            return;
         };
 
         if (errorValidate.size) {
@@ -97,7 +100,6 @@ const sendForm = errorValidate => {
         if (clubName.length) {
             let isChecked = false;
             clubName.forEach(item => {
-                console.log(item.checked);
                 if (item.checked) isChecked = true;
             });
 
@@ -124,7 +126,10 @@ const sendForm = errorValidate => {
                 }
                 statusMessage.textContent = '';
                 showMessage(callModal, true);
-                form.querySelectorAll('input').forEach(item => {
+                form.querySelectorAll('input[type=text]').forEach(item => {
+                    item.value = '';
+                });
+                form.querySelectorAll('input[type=tel]').forEach(item => {
                     item.value = '';
                 });
             })
